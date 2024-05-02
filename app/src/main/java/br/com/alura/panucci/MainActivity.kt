@@ -22,6 +22,8 @@ import br.com.alura.panucci.ui.components.bottomAppBarItems
 import br.com.alura.panucci.ui.screens.*
 import br.com.alura.panucci.ui.theme.PanucciTheme
 
+private const val TAG = "MainActivity"
+
 class MainActivity : ComponentActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -37,6 +39,8 @@ class MainActivity : ComponentActivity() {
                 }
             }
             val backStackEntryState by navController.currentBackStackEntryAsState()
+            val orderDoneMessage = backStackEntryState?.savedStateHandle?.getStateFlow<String?>("order_done", null)?.collectAsState()
+            Log.i(TAG, "onCreate: order done msg -> ${orderDoneMessage?.value}")
             val currentDestination = backStackEntryState?.destination
             PanucciTheme {
                 Surface(
