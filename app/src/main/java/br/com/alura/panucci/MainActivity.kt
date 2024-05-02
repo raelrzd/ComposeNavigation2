@@ -64,6 +64,7 @@ class MainActivity : ComponentActivity() {
             val orderDoneMessage =
                 backStackEntryState?.savedStateHandle?.getStateFlow<String?>("order_done", null)
                     ?.collectAsState()
+            backStackEntryState?.savedStateHandle?.remove<String?>("order_done")
             Log.i(TAG, "onCreate: order done msg -> ${orderDoneMessage?.value}")
             val snackbarHostState = remember {
                 SnackbarHostState()
