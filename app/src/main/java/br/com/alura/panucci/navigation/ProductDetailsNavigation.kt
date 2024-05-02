@@ -7,18 +7,26 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
+import androidx.navigation.navDeepLink
 import br.com.alura.panucci.ui.screens.ProductDetailsScreen
 import br.com.alura.panucci.ui.viewmodels.ProductDetailsViewModel
 
 private const val productDetailsRoute = "productDetails"
 internal const val productIdArgument = "productId"
+private const val promoCodeArgument = "promoCode"
 
 fun NavGraphBuilder.productDetailsScreen(
     onNavigateToCheckout: () -> Unit,
-    onPopBackStack: () -> Unit
+    onPopBackStack: () -> Unit,
 ) {
     composable(
-        "$productDetailsRoute/{$productIdArgument}"
+        route = "$productDetailsRoute/{$productIdArgument}",
+        deepLinks = listOf(
+            navDeepLink {
+                uriPattern =
+                    "$uri/$productDetailsRoute/{$productIdArgument}?$promoCodeArgument={$promoCodeArgument}"
+            }
+        )
     ) { backStackEntry ->
         backStackEntry.arguments?.getString(productIdArgument)?.let { id ->
             val viewModel = viewModel<ProductDetailsViewModel>(factory = ProductDetailsViewModel.Factory)
@@ -37,6 +45,6 @@ fun NavGraphBuilder.productDetailsScreen(
     }
 }
 
-fun NavController.navigateToProductDetails(id: String){
+fun NavController.navigateToProductDetails(id: String) {
     navigate("$productDetailsRoute/$id")
 }

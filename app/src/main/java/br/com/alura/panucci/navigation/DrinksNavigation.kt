@@ -13,14 +13,17 @@ import br.com.alura.panucci.ui.screens.DrinksListScreen
 import br.com.alura.panucci.ui.viewmodels.DrinksListViewModel
 
 internal const val drinksRoute = "drinks"
-private const val uri = "alura://panucci.com.br/drinks"
 
 fun NavGraphBuilder.drinksScreen(
-    onNavigateToProductDetails: (Product) -> Unit
+    onNavigateToProductDetails: (Product) -> Unit,
 ) {
     composable(
         route = drinksRoute,
-        deepLinks = listOf(navDeepLink { uriPattern = uri })
+        deepLinks = listOf(
+            navDeepLink {
+                uriPattern = "$uri/$drinksRoute"
+            }
+        )
     ) {
         val viewModel = viewModel<DrinksListViewModel>()
         val uiState by viewModel.uiState.collectAsState()
@@ -32,7 +35,7 @@ fun NavGraphBuilder.drinksScreen(
 }
 
 fun NavController.navigateToDrinks(
-    navOptions: NavOptions? = null
+    navOptions: NavOptions? = null,
 ) {
     navigate(drinksRoute, navOptions)
 }
