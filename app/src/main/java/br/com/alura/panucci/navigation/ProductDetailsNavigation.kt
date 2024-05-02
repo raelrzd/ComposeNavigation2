@@ -13,7 +13,7 @@ import br.com.alura.panucci.ui.viewmodels.ProductDetailsViewModel
 
 private const val productDetailsRoute = "productDetails"
 internal const val productIdArgument = "productId"
-private const val promoCodeArgument = "promoCode"
+internal const val promoCodeArgument = "promoCode"
 
 fun NavGraphBuilder.productDetailsScreen(
     onNavigateToCheckout: () -> Unit,
