@@ -18,8 +18,10 @@ import br.com.alura.panucci.navigation.checkoutRoute
 import br.com.alura.panucci.navigation.drinksRoute
 import br.com.alura.panucci.navigation.highlightsListRoute
 import br.com.alura.panucci.navigation.menuRoute
+import br.com.alura.panucci.navigation.navigateToProductDetails
 import br.com.alura.panucci.navigation.productDetailsRoute
 import br.com.alura.panucci.navigation.productIdArgument
+import br.com.alura.panucci.sampledata.sampleProducts
 import org.junit.Assert.assertEquals
 import org.junit.Before
 import org.junit.Rule
@@ -148,7 +150,7 @@ class NavigationTest {
     }
 
     @Test
-    fun appNavHost_verifyNavigateToCheckoutScreenFromHighlightsScreen(){
+    fun appNavHost_verifyNavigateToCheckoutScreenFromHighlightsScreen() {
         composeTestRule.onRoot().printToLog("PanucciApp")
 
         composeTestRule.onAllNodesWithText("Pedir")
@@ -163,7 +165,7 @@ class NavigationTest {
     }
 
     @Test
-    fun appNavHost_verifyNavigateToCheckoutScreenFromMenuScreen(){
+    fun appNavHost_verifyNavigateToCheckoutScreenFromMenuScreen() {
         composeTestRule.onRoot().printToLog("PanucciApp")
 
         composeTestRule.onNodeWithText("Menu")
@@ -180,7 +182,7 @@ class NavigationTest {
     }
 
     @Test
-    fun appNavHost_verifyNavigateToCheckoutScreenFromDrinksScreen(){
+    fun appNavHost_verifyNavigateToCheckoutScreenFromDrinksScreen() {
         composeTestRule.onRoot().printToLog("PanucciApp")
 
         composeTestRule.onNodeWithText("Bebidas")
@@ -188,6 +190,27 @@ class NavigationTest {
 
         composeTestRule.onNodeWithContentDescription("Floating Action Button for order")
             .performClick()
+
+        composeTestRule.onNodeWithText("Pedido")
+            .assertIsDisplayed()
+
+        val route = navController.currentBackStackEntry?.destination?.route
+        assertEquals(route, checkoutRoute)
+    }
+
+    @Test
+    fun appNavHost_verifyNavigateToCheckoutFromProductDetails() {
+        composeTestRule.onRoot().printToLog("PanucciApp")
+
+        composeTestRule.runOnUiThread {
+            navController.navigateToProductDetails(sampleProducts.first().id)
+        }
+
+        composeTestRule.waitUntil(3000) {
+            composeTestRule.onAllNodesWithText("Pedir").fetchSemanticsNodes().size == 1
+        }
+
+        composeTestRule.onNodeWithText("Pedir").performClick()
 
         composeTestRule.onNodeWithText("Pedido")
             .assertIsDisplayed()
