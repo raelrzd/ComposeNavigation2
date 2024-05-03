@@ -14,6 +14,7 @@ import androidx.compose.ui.test.performClick
 import androidx.compose.ui.test.printToLog
 import androidx.navigation.compose.ComposeNavigator
 import androidx.navigation.testing.TestNavHostController
+import br.com.alura.panucci.navigation.checkoutRoute
 import br.com.alura.panucci.navigation.drinksRoute
 import br.com.alura.panucci.navigation.highlightsListRoute
 import br.com.alura.panucci.navigation.menuRoute
@@ -144,6 +145,55 @@ class NavigationTest {
 
         val route = navController.currentBackStackEntry?.destination?.route
         assertEquals(route, "$productDetailsRoute/{$productIdArgument}")
+    }
+
+    @Test
+    fun appNavHost_verifyNavigateToCheckoutScreenFromHighlightsScreen(){
+        composeTestRule.onRoot().printToLog("PanucciApp")
+
+        composeTestRule.onAllNodesWithText("Pedir")
+            .onFirst()
+            .performClick()
+
+        composeTestRule.onNodeWithText("Pedido")
+            .assertIsDisplayed()
+
+        val route = navController.currentBackStackEntry?.destination?.route
+        assertEquals(route, checkoutRoute)
+    }
+
+    @Test
+    fun appNavHost_verifyNavigateToCheckoutScreenFromMenuScreen(){
+        composeTestRule.onRoot().printToLog("PanucciApp")
+
+        composeTestRule.onNodeWithText("Menu")
+            .performClick()
+
+        composeTestRule.onNodeWithContentDescription("Floating Action Button for order")
+            .performClick()
+
+        composeTestRule.onNodeWithText("Pedido")
+            .assertIsDisplayed()
+
+        val route = navController.currentBackStackEntry?.destination?.route
+        assertEquals(route, checkoutRoute)
+    }
+
+    @Test
+    fun appNavHost_verifyNavigateToCheckoutScreenFromDrinksScreen(){
+        composeTestRule.onRoot().printToLog("PanucciApp")
+
+        composeTestRule.onNodeWithText("Bebidas")
+            .performClick()
+
+        composeTestRule.onNodeWithContentDescription("Floating Action Button for order")
+            .performClick()
+
+        composeTestRule.onNodeWithText("Pedido")
+            .assertIsDisplayed()
+
+        val route = navController.currentBackStackEntry?.destination?.route
+        assertEquals(route, checkoutRoute)
     }
 
 }
