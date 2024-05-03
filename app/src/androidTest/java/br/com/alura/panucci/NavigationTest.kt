@@ -7,6 +7,7 @@ import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.compose.ui.test.onAllNodesWithContentDescription
 import androidx.compose.ui.test.onAllNodesWithText
 import androidx.compose.ui.test.onFirst
+import androidx.compose.ui.test.onNodeWithContentDescription
 import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.onRoot
 import androidx.compose.ui.test.performClick
@@ -89,6 +90,14 @@ class NavigationTest {
         composeTestRule.onAllNodesWithContentDescription("Highlight Item Card Product").onFirst()
             .performClick()
 
+        composeTestRule.waitUntil(3000) {
+            composeTestRule.onAllNodesWithText("Falha ao buscar o produto")
+                .fetchSemanticsNodes().size == 1
+        }
+
+        composeTestRule.onNodeWithText("Falha ao buscar o produto")
+            .assertIsDisplayed()
+
         val route = navController.currentBackStackEntry?.destination?.route
         assertEquals(route, "$productDetailsRoute/{$productIdArgument}")
     }
@@ -102,6 +111,15 @@ class NavigationTest {
         composeTestRule.onAllNodesWithContentDescription("Menu Item Product").onFirst()
             .performClick()
 
+        composeTestRule.waitUntil(3000) {
+            composeTestRule.onAllNodesWithContentDescription("Product Details Content")
+                .fetchSemanticsNodes().size == 1
+        }
+
+        composeTestRule
+            .onNodeWithContentDescription("Product Details Content")
+            .assertIsDisplayed()
+
         val route = navController.currentBackStackEntry?.destination?.route
         assertEquals(route, "$productDetailsRoute/{$productIdArgument}")
     }
@@ -114,6 +132,15 @@ class NavigationTest {
 
         composeTestRule.onAllNodesWithContentDescription("Drinks Item Card Product").onFirst()
             .performClick()
+
+        composeTestRule.waitUntil(3000) {
+            composeTestRule.onAllNodesWithContentDescription("Product Details Content")
+                .fetchSemanticsNodes().size == 1
+        }
+
+        composeTestRule
+            .onNodeWithContentDescription("Product Details Content")
+            .assertIsDisplayed()
 
         val route = navController.currentBackStackEntry?.destination?.route
         assertEquals(route, "$productDetailsRoute/{$productIdArgument}")

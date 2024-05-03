@@ -8,13 +8,16 @@
       <entry key="app">
         <State />
       </entry>
+      <entry key="appNavHost_verifyNavigateToDetailsScreenFromDrinksScreen()">
+        <State />
+      </entry>
       <entry key="appNavHost_verifyNavigateToDetailsScreenFromHighlightScreen()">
         <State />
       </entry>
-      <entry key="appNavHost_verifyNavigateToMenuScreen()">
+      <entry key="appNavHost_verifyNavigateToDetailsScreenFromMenuScreen()">
         <State />
       </entry>
-      <entry key="appNavHost_verifyStartDestination()">
+      <entry key="appNavHost_verifyNavigateToMenuScreen()">
         <State />
       </entry>
     </value>
