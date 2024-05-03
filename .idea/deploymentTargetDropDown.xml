@@ -5,6 +5,12 @@
       <entry key="app">
         <State />
       </entry>
+      <entry key="appNavHost_verifyNavigateToMenuScreen()">
+        <State />
+      </entry>
+      <entry key="appNavHost_verifyStartDestination()">
+        <State />
+      </entry>
     </value>
   </component>
 </project>
