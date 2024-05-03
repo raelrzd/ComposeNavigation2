@@ -8,6 +8,9 @@
       <entry key="app">
         <State />
       </entry>
+      <entry key="appNavHost_verifyNavigateToDetailsScreenFromHighlightScreen()">
+        <State />
+      </entry>
       <entry key="appNavHost_verifyNavigateToMenuScreen()">
         <State />
       </entry>
